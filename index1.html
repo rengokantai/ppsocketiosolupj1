@@ -6,6 +6,18 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script type="text/javascript">
 		var socket = io('http://localhost:5000');
+		//client-side debugging
+		localStorage.debug = '*';
+		//set level: e.g
+		//localStorage.debug = 'engine.io-client:polling-xhr';
+		//set multiple type
+		//localStorage.debug = 'engine.io-client:polling, engine.io-client:socket';
+		//server-side debugging
+		//DEBUG=* node server'
+		//Or
+		//export DEBUG=*
+		//to disable
+		//export DEBUG=null
 		socket.on('servertoclient',(message)=>{
 			document.body.appendChild(document.createTextNode(message.greet));
 			socket.emit('clienttoserver',{
