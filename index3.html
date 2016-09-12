@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<form action="" id="my">
+	<textarea name="" id="message" cols="30" rows="10">
+		
+	</textarea>
+	<p><button type="submit">send</button></p>
+</form>
+<div id="messages">
+	
+</div>
+<script src="http://localhost:5000/socket.io/socket.io.js"></script>
+<script>
+	var socket = io('http://localhost:5000');
+	socket.on('connect',()=>{
+		document.getElementById('my').addEventListener('submit',(e)=>{
+			e.preventDefault();
+			socket.send(document.getElementById('message').value);
+		});
+		socket.on('message',(message)=>{
+			var messageNode = document.createTextNode(message),
+			messageElem = document.createElement('p');
+			messageElem.appendChild(messageNode);
+			document.getElementById('messages').appendChild(messageElem);
+		})
+	})
+</script>
+	
+</body>
+</html>
